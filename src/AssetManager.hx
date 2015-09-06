@@ -17,7 +17,7 @@ class AssetManager {
 
     }
 
-  //asset array elements name:String, path:String, frames:Int, scale:Bool
+  //asset array elements name:String, path:String, frames:Int, scale:Float
     public function load(assets:Array<Array<Dynamic>>, cb:Float -> Void = null) {
         var progress:Float = 0;
 
@@ -30,7 +30,7 @@ class AssetManager {
 
     }
 
-    private function _load(name:String, path:String = null, frames:Int = 1, scale:Bool = false) {
+    private function _load(name:String, path:String = null, frames:Int = 1, scale:Float = 1.0) {
         if (path == null) {
             path = "graphics/" + name + ".svg";
         } else {
@@ -39,10 +39,12 @@ class AssetManager {
 
         var svg : SVG = new SVG(openfl.Assets.getText(path));
 
-        var mult:Float = scale?_screen_scale:_cm_to_pixel;
+        if (svg.data.width > 2) {
+            trace("Asset " + name + " tooo big!");
+        }
 
-        var x:Int = Std.int(svg.data.width * mult);
-        var y:Int = Std.int((svg.data.height * mult) / frames) * frames;
+        var x:Int = Std.int(svg.data.width * scale);
+        var y:Int = Std.int((svg.data.height * scale) / frames) * frames;
 
         var shape = new Shape();
         svg.render(shape.graphics, 0, 0, x, y);

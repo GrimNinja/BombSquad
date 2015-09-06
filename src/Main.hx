@@ -1,6 +1,5 @@
 import com.haxepunk.Engine;
 import com.haxepunk.HXP;
-import com.haxepunk.utils.Gesture;
 import openfl.system.Capabilities;
 import scenes.SplashScene;
 import scenes.MainScene;
@@ -13,10 +12,13 @@ class Main extends Engine
     private inline function get_assets():AssetManager { return _assetManager; }
 
     override public function init() {
+        maxElapsed = 0.1;
         _assetManager = new AssetManager();
-        _assetManager.load([["splash", null, 2, true]]);
+        _assetManager.load([["splash", null, 2, HXP.width / 2]]);
 
-        Gesture.enable();
+        //load graphics here for now
+        _assetManager.load([["bomb", "graphics/game", 2, HXP.width / 6]]);
+
         HXP.randomizeSeed();
 
 #if debug
