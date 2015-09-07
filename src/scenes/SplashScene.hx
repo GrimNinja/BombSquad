@@ -65,13 +65,13 @@ class SplashScene extends Scene {
     private function fadeIn(arg:Dynamic) {
         fade = new ColorTween(fadeInComplete, TweenType.OneShot);
         fade.tween(0.5, 0, 0, 0, 1);
-        addTween(fade);
+        addTween(fade, true);
     }
 
     private function fadeOut(arg:Dynamic) {
         fade = new ColorTween(fadeOutComplete, TweenType.OneShot);
         fade.tween(0.5, 0, 0, 1, 0);
-        addTween(fade);
+        addTween(fade, true);
     }
 
     private function blink(arg:Dynamic) {
