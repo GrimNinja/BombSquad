@@ -5,13 +5,14 @@
  	<app file="Main" main="Main" path="bin" />
 
 	<window fps="60" background="0x000000" />
-	<window width="480" height="640" resizable="true" unless="mobile" />
+	<window width="480" height="640" resizable="false" unless="mobile" />
 	<window orientation="portrait" fullscreen="true" if="mobile" />
-	<window orientation="portrait" vsync="true" antialiasing="0" if="cpp" />
+	<window orientation="portrait" vsync="true" if="cpp" />
 
 	<source path="src" />
 
 	<haxelib name="HaxePunk" />
+    <haxelib name="svg" />
 
     <assets path="assets/graphics" rename="graphics" include="*.svg|*.png|*.jpg" />
 	<assets path="assets/audio" rename="audio" include="*.wav|*.ogg" unless="flash" />
