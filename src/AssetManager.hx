@@ -1,6 +1,7 @@
 import openfl.display.BitmapData;
 import openfl.system.Capabilities;
 import openfl.display.Shape;
+import openfl.media.Sound;
 import format.SVG;
 import com.haxepunk.HXP;
 /**
@@ -10,6 +11,7 @@ import com.haxepunk.HXP;
 class AssetManager {
 
     private var _bitmapData : Map<String, BitmapData> = new Map<String, BitmapData>();
+    private var _soundData : Map<String, Sound> = new Map<String, Sound>();
     private var _cm_to_pixel:Float = Capabilities.screenDPI / 2.54;
     private var _screen_scale:Float= HXP.height / 640;
 
@@ -28,6 +30,18 @@ class AssetManager {
             if (cb != null) cb(progress / assets.length);
         }
 
+    }
+
+    public function loadsound(name:String, path:String = null) {
+        if (path == null) {
+            path = "audio/" + name + ".wav";
+        } else {
+            path = path + "/" + name + ".wav";
+        }
+
+         var sound:Sound = openfl.Assets.getSound(path);
+
+         _soundData.set(name, sound);
     }
 
     private function _load(name:String, path:String = null, frames:Int = 1, scale:Float = 1.0) {
@@ -70,5 +84,11 @@ class AssetManager {
         }
     }
 
-
+    public function getsound(asset:String) : Sound {
+        if (_soundData.exists(asset)) {
+            return _soundData.get(asset);
+        } else {
+            return null;
+        }
+    }
 }

@@ -3,6 +3,7 @@ package game;
 import com.haxepunk.HXP;
 import com.haxepunk.graphics.Spritemap;
 import openfl.display.BitmapData;
+import openfl.media.SoundChannel;
 
 class Bomb {
 
@@ -15,10 +16,25 @@ class Bomb {
     private var _bomb:Spritemap;
     private var _board:Board;
 
+    private var _pitch:Float;
+
+    private var _scale = [
+        Math.pow(2.0, 0),
+        Math.pow(2.0, -2/12.0),
+        Math.pow(2.0, -4/12.0),
+        Math.pow(2.0, -7/12.0),
+        Math.pow(2.0, -9/12.0),
+        Math.pow(2.0, -12/12.0),
+        Math.pow(2.0, -14/12.0),
+        Math.pow(2.0, -16/12.0)
+    ];
+
     public function new(b:Board, x, y, t:Int, a:Bool) {
         _active = a;
         _count = 0;
         _board = b;
+
+        _pitch = _scale[y];
 
         var bomb_data:BitmapData = cast(HXP.engine, Main).assets.get("bomb");
         _bomb = new Spritemap(bomb_data, bomb_data.width, Std.int(bomb_data.height/2));
@@ -28,7 +44,13 @@ class Bomb {
         _bomb.y = y*bomb_data.width;
 
         _board.addGraphic(_bomb);
+    }
 
+    public function play(arg:Dynamic) {
+        if (_active) {
+            var tone:SoundChannel = cast(HXP.engine, Main).assets.getsound("tone").play();
+            tone.pitch = _pitch;
+        }
     }
 
     public function toggle(setting:Bool = false) {

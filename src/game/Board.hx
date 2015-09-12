@@ -2,6 +2,7 @@ package game;
 
 import com.haxepunk.Entity;
 import com.haxepunk.HXP;
+import com.haxepunk.Tween.TweenType;
 
 class Board extends Entity {
 
@@ -10,6 +11,10 @@ class Board extends Entity {
     private var _height:Int;
     private var _w:Int;
     private var _h:Int;
+
+    private var _beat:Int = 0;
+    private var _tempo:Float = 0.2;
+    private var _tempoAcc:Float = 0.0;
 
     public function new(w:Int, h:Int) {
         super();
@@ -29,6 +34,24 @@ class Board extends Entity {
         height = _height * h;
         x = HXP.halfWidth - (width / 2);
         y = HXP.halfHeight - (height / 2);
+    }
+
+    public override function update(): Void {
+        super.update();
+
+        _tempoAcc += HXP.elapsed;
+        if (_tempoAcc >= _tempo) {
+            _tempoAcc -= _tempo;
+            _tempo = Math.random() + 0.2;
+
+            //loop through the current beat of the board and play any lit lights
+            for (y in 0..._h) {
+                HXP.alarm(Math.random() / 10, _bombs[_beat][y].play, TweenType.OneShot);
+                //_bombs[_beat][y].play();
+            }
+            _beat++;
+            if (_beat >= _w) _beat = 0;
+        }
     }
 
     public function clicked(x:Int, y:Int) {
