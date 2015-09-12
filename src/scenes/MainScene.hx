@@ -9,10 +9,10 @@ import game.*;
 class MainScene extends Scene
 {
     private var _board:Board;
-	public override function begin() {
+    public override function begin() {
         _board = new Board(6, 8);
         add(_board);
-	}
+    }
 
     public override function update():Void {
         super.update();
