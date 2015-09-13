@@ -24,14 +24,14 @@ class Bomb {
     private var _rate:Float = Math.random() + 1;
 
     private var _scale = [
+        5/4.0,
+        9/8.0,
         1,
         3/4.0,
         5/8.0,
         9/16.0,
         0.5,
-        3/8.0,
-        5/16.0,
-        9/32.0
+        3/8.0
     ];
 
     public function new(b:Board, x, y, t:Int, a:Bool) {
