@@ -13,6 +13,7 @@
 
     <haxelib name="HaxePunk" />
     <haxelib name="svg" />
+    <haxelib name="hxColorToolkit" />
 
     <assets path="assets/graphics" rename="graphics" include="*.svg|*.png|*.jpg" />
     <assets path="assets/audio" rename="audio" include="*.wav|*.ogg" unless="flash" />

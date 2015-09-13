@@ -10,6 +10,8 @@ class Bomb {
     private var _active:Bool;
     private var _count:Int;
 
+    public var active(get, null):Bool;
+    private inline function get_active():Bool { return _active; }
     public var count(get, null):Int;
     private inline function get_count():Int { return _count; }
 
@@ -18,15 +20,18 @@ class Bomb {
 
     private var _pitch:Float;
 
+    private var _colour = new hxColorToolkit.spaces.HSL(Math.floor(Math.random()*360), 50, 50);
+    private var _rate:Float = Math.random() + 1;
+
     private var _scale = [
-        5/4.0,
-        9/8.0,
         1,
-        5/6.0,
         3/4.0,
         5/8.0,
         9/16.0,
-        0.5
+        0.5,
+        3/8.0,
+        5/16.0,
+        9/32.0
     ];
 
     public function new(b:Board, x, y, t:Int, a:Bool) {
@@ -46,6 +51,14 @@ class Bomb {
         _board.addGraphic(_bomb);
     }
 
+    public function update() {
+        _colour.hue += HXP.elapsed * _rate;
+        _colour.hue = _colour.hue % 360;
+        if (_active) {
+            _bomb.color = _colour.getColor();
+        }
+    }
+
     public function play(arg:Dynamic) {
         if (_active) {
             var tone:SoundChannel = cast(HXP.engine, Main).assets.getsound("tone").play();
@@ -57,8 +70,10 @@ class Bomb {
         _active = !_active;
         if (_active) {
             _bomb.play("on");
+            _bomb.color = _colour.getColor();
         } else {
             _bomb.play("off");
+            _bomb.color = 0xFFFFFF;
         }
         if (setting) {
             _count++;

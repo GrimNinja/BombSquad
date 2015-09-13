@@ -39,15 +39,26 @@ class Board extends Entity {
     public override function update(): Void {
         super.update();
 
+        for (x in 0..._w) {
+            for (y in 0..._h) {
+                _bombs[x][y].update();
+            }
+        }
+
         _tempoAcc += HXP.elapsed;
         if (_tempoAcc >= _tempo) {
             _tempoAcc -= _tempo;
             _tempo = Math.random() + 0.2;
 
-            //loop through the current beat of the board and play any lit lights
-            for (y in 0..._h) {
-                HXP.alarm(Math.random() / 10, _bombs[_beat][y].play, TweenType.OneShot);
-                //_bombs[_beat][y].play();
+            //loop through the current beat of the board and play a maximum of two lit on that column
+            var a = [for (i in 0..._h) i];
+            var _p = 0;
+            while (_p < 2 && a.length > 0) {
+                 var ind = a.splice(Math.floor(Math.random() * a.length), 1)[0];
+                 if (_bombs[_beat][ind].active) {
+                     HXP.alarm(Math.random() / 10, _bombs[_beat][ind].play, TweenType.OneShot);
+                     _p++;
+                 }
             }
             _beat++;
             if (_beat >= _w) _beat = 0;
