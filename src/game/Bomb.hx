@@ -19,14 +19,14 @@ class Bomb {
     private var _pitch:Float;
 
     private var _scale = [
-        Math.pow(2.0, 0),
-        Math.pow(2.0, -2/12.0),
-        Math.pow(2.0, -4/12.0),
-        Math.pow(2.0, -7/12.0),
-        Math.pow(2.0, -9/12.0),
-        Math.pow(2.0, -12/12.0),
-        Math.pow(2.0, -14/12.0),
-        Math.pow(2.0, -16/12.0)
+        5/4.0,
+        9/8.0,
+        1,
+        5/6.0,
+        3/4.0,
+        5/8.0,
+        9/16.0,
+        0.5
     ];
 
     public function new(b:Board, x, y, t:Int, a:Bool) {

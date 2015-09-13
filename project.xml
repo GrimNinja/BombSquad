@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project>
-	<meta title="BombSquad" package="com.example.app" version="0.0.1" company="Grim Ninja" />
+    <meta title="Tones Out" package="com.example.tonesout" version="0.0.1" company="Grim Ninja" />
 
- 	<app file="Main" main="Main" path="bin" />
+    <app file="Main" main="Main" path="bin" />
 
-	<window fps="60" background="0x000000" />
-	<window width="480" height="640" resizable="false" unless="mobile" />
-	<window orientation="portrait" fullscreen="true" if="mobile" />
-	<window orientation="portrait" vsync="true" if="cpp" />
+    <window fps="60" background="0x000000" />
+    <window width="480" height="640" resizable="false" unless="mobile" />
+    <window orientation="portrait" fullscreen="true" if="mobile" />
+    <window orientation="portrait" vsync="true" if="cpp" />
 
-	<source path="src" />
+    <source path="src" />
 
-	<haxelib name="HaxePunk" />
+    <haxelib name="HaxePunk" />
     <haxelib name="svg" />
 
     <assets path="assets/graphics" rename="graphics" include="*.svg|*.png|*.jpg" />
-	<assets path="assets/audio" rename="audio" include="*.wav|*.ogg" unless="flash" />
-	<assets path="assets/font" rename="font" include="*.ttf" />
+    <assets path="assets/audio" rename="audio" include="*.wav|*.ogg" unless="flash" />
+    <assets path="assets/font" rename="font" include="*.ttf" />
 
-	<icon path="assets/BombSquad.svg" />
+    <icon path="assets/TonesOut.svg" />
 </project>
