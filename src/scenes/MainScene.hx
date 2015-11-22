@@ -10,7 +10,7 @@ class MainScene extends Scene
 {
     private var _board:Board;
     public override function begin() {
-        _board = new Board(6, 8);
+        _board = new Board(6, 6);
         add(_board);
     }
 
