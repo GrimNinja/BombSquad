@@ -1,5 +1,5 @@
-# BombSquad
-Bomb disposal puzzle game!
+# Tone Out
+Light and sound puzzle game.
 
 #Dependencies
 
