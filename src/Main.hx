@@ -2,7 +2,7 @@ import com.haxepunk.Engine;
 import com.haxepunk.HXP;
 import openfl.system.Capabilities;
 import scenes.SplashScene;
-import scenes.MainScene;
+import scenes.MenuScene;
 
 class Main extends Engine
 {
@@ -25,7 +25,7 @@ class Main extends Engine
 
 #if debug
         HXP.console.enable();
-        HXP.scene = new MainScene();
+        HXP.scene = new MenuScene();
 #else
         HXP.scene = new SplashScene();
 #end

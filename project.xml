@@ -18,6 +18,7 @@
     <assets path="assets/graphics" rename="graphics" include="*.svg|*.png|*.jpg" />
     <assets path="assets/audio" rename="audio" include="*.wav|*.ogg" unless="flash" />
     <assets path="assets/font" rename="font" include="*.ttf" />
+    <assets path="assets/levels" rename="levels" include="*.json" />
 
     <icon path="assets/TonesOut.svg" />
 </project>

@@ -59,7 +59,7 @@ class SplashScene extends Scene {
 
     private function fadeOutComplete(ar:Dynamic) {
         //change scene
-        HXP.scene = new MainScene();
+        HXP.scene = new MenuScene();
     }
 
     private function fadeIn(arg:Dynamic) {

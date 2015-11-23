@@ -16,13 +16,29 @@ class Board extends Entity {
     private var _tempo:Float = 0.2;
     private var _tempoAcc:Float = 0.0;
 
-    public function new(w:Int, h:Int) {
+    public var cols:Int;
+    public var rows:Int;
+    public var menu:Bool = false;
+
+
+    public function new(w:Int, h:Int, menu:Bool = false) {
         super();
         type = "board";
+        this.menu = menu;
         _bombs = [];
-        _width = _height = Std.int(HXP.width / 6);
+        _width = Std.int(HXP.width / w);
+        _height = Std.int(_width * (h / w));
         _w = w;
         _h = h;
+
+        cols = w;
+        rows = h;
+
+        width =  _width * w;
+        height = _height * h;
+        x = HXP.halfWidth - (width / 2);
+        y = HXP.halfHeight - (height / 2);
+
         for (x in 0...w) {
             _bombs[x] = [];
             for (y in 0...h) {
@@ -30,10 +46,6 @@ class Board extends Entity {
                 _bombs[x][y] = new Bomb(this, x, y, time, false);
             }
         }
-        width =  _width * w;
-        height = _height * h;
-        x = HXP.halfWidth - (width / 2);
-        y = HXP.halfHeight - (height / 2);
     }
 
     public override function update(): Void {
@@ -65,6 +77,35 @@ class Board extends Entity {
         }
     }
 
+    public function load(level:Array<Dynamic>) {
+        clear();
+        for (t in level) {
+            toggle(t.x, t.y, true, true);
+        }
+    }
+
+    public function clear() {
+        for (x in 0..._w) {
+            for (y in 0..._h) {
+                if (_bombs[x][y].active) {
+                    toggle(x, y, false, true);
+                }
+            }
+        }
+    }
+
+    public function save() {
+         var ar = [];
+         for (x in 0...6) {
+             for (y in 0...6) {
+                 if (_bombs[x][y].active) {
+                      ar.push({x:x, y:y});
+                 }
+             }
+         }
+         return ar;
+    }
+
     public function clicked(x:Int, y:Int) {
         var lX:Int = Std.int(x - this.x);
         var lY:Int = Std.int(y - this.y);
@@ -72,14 +113,15 @@ class Board extends Entity {
         toggle(Math.floor(lX / _width), Math.floor(lY / _height));
     }
 
-    public function toggle(x:Int, y:Int, setting:Bool = false) {
+    public function toggle(x:Int, y:Int, setting:Bool = false, onlyOne:Bool = false) {
 
         //toggle bomb plus surrounding in x and y direction
         _bombs[x][y].toggle(setting);
-        if (x > 0)      _bombs[x-1][y].toggle(setting);
-        if (x < _w - 1) _bombs[x+1][y].toggle(setting);
-        if (y > 0)      _bombs[x][y-1].toggle(setting);
-        if (y < _h - 1) _bombs[x][y+1].toggle(setting);
-
+        if (!onlyOne) {
+            if (x > 0)      _bombs[x-1][y].toggle(setting);
+            if (x < _w - 1) _bombs[x+1][y].toggle(setting);
+            if (y > 0)      _bombs[x][y-1].toggle(setting);
+            if (y < _h - 1) _bombs[x][y+1].toggle(setting);
+        }
     }
 }
