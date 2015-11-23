@@ -16,6 +16,10 @@ class Board extends Entity {
     private var _tempo:Float = 0.2;
     private var _tempoAcc:Float = 0.0;
 
+    private var _solved:Bool = false;
+    public var solved(get, null):Bool;
+    private inline function get_solved():Bool { return _solved; }
+
     public var cols:Int;
     public var rows:Int;
     public var menu:Bool = false;
@@ -82,6 +86,7 @@ class Board extends Entity {
         for (t in level) {
             toggle(t.x, t.y, true, true);
         }
+        _solved = false;
     }
 
     public function clear() {
@@ -123,5 +128,15 @@ class Board extends Entity {
             if (y > 0)      _bombs[x][y-1].toggle(setting);
             if (y < _h - 1) _bombs[x][y+1].toggle(setting);
         }
+
+        for (bx in 0..._w) {
+            for (by in 0..._h) {
+                if (_bombs[bx][by].active) {
+                    return;
+                }
+            }
+        }
+
+        _solved = true;
     }
 }

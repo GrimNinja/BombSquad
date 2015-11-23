@@ -24,8 +24,15 @@ class MainScene extends Scene
             if (e != null) {
                 var b:Board = cast(e, Board);
                 b.clicked(Input.mouseX, Input.mouseY);
+
+                if (b.solved) {
+                    _board.load(haxe.Json.parse(openfl.Assets.getText("levels/" + Std.string(lev) + ".json")));
+                    lev++;
+                    if (lev > 30) {
+                        lev = 0;
+                    }
+                }
             } else {
-                _board.clear();
                 _board.load(haxe.Json.parse(openfl.Assets.getText("levels/" + Std.string(lev) + ".json")));
                 lev++;
                 if (lev > 30) {
