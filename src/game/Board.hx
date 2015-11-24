@@ -16,6 +16,15 @@ class Board extends Entity {
     private var _tempo:Float = 0.2;
     private var _tempoAcc:Float = 0.0;
 
+    private var _loadingAcc:Float = 0.0;
+    private var _loadingTempo:Float = 0.1;
+    private var _loadingStep:Int = 0;
+
+    private var _level:Array<Dynamic>;
+
+    private var _loading:Bool = false;
+    public var loading(get, null):Bool;
+    private inline function get_loading():Bool { return _loading; }
     private var _solved:Bool = false;
     public var solved(get, null):Bool;
     private inline function get_solved():Bool { return _solved; }
@@ -61,6 +70,29 @@ class Board extends Entity {
             }
         }
 
+        if (_loading) {
+            _loadingAcc += HXP.elapsed;
+            if (_loadingStep >= _h) {
+                if (_loadingAcc >= 0.7) {
+                    _loadingAcc = 0.0;
+                    _loadingStep = 0;
+                    for (t in _level) {
+                        toggle(t.x, t.y, true, true);
+                    }
+                    _loading = false;
+                    _solved = false;
+                }
+            } else if (_loadingAcc >= _loadingTempo) {
+                _loadingAcc -= _loadingTempo;
+                for (c in 0..._w) {
+                    _bombs[c][_loadingStep]._play(true);
+                    toggle(c, _loadingStep, false, true);
+                }
+                _loadingStep++;
+            }
+            return;
+        }
+
         _tempoAcc += HXP.elapsed;
         if (_tempoAcc >= _tempo) {
             _tempoAcc -= _tempo;
@@ -82,17 +114,31 @@ class Board extends Entity {
     }
 
     public function load(level:Array<Dynamic>) {
-        clear();
-        for (t in level) {
-            toggle(t.x, t.y, true, true);
-        }
-        _solved = false;
+        _loading = true;
+        clear(false);
+
+        _level = level;
+        //for (r in 0..._h) {
+            //HXP.alarm(r * 0.1, function(arg:Dynamic) {
+                //for (c in 0..._w) {
+                    //_bombs[c][r]._play(true);
+                    //toggle(c, r, false, true);
+                //}
+            //}, TweenType.OneShot);
+        //}
+        //HXP.alarm(_h * 0.1, function(arg:Dynamic) {
+            //for (t in level) {
+                //toggle(t.x, t.y, true, true);
+            //}
+            //_loading = false;
+            //_solved = false;
+        //}, TweenType.OneShot);
     }
 
-    public function clear() {
+    public function clear(off:Bool = true) {
         for (x in 0..._w) {
             for (y in 0..._h) {
-                if (_bombs[x][y].active) {
+                if (_bombs[x][y].active == off) {
                     toggle(x, y, false, true);
                 }
             }
@@ -112,6 +158,9 @@ class Board extends Entity {
     }
 
     public function clicked(x:Int, y:Int) {
+        if (_loading) {
+            return;
+        }
         var lX:Int = Std.int(x - this.x);
         var lY:Int = Std.int(y - this.y);
 
@@ -129,6 +178,9 @@ class Board extends Entity {
             if (y < _h - 1) _bombs[x][y+1].toggle(setting);
         }
 
+        if (_loading) {
+            return;
+        }
         for (bx in 0..._w) {
             for (by in 0..._h) {
                 if (_bombs[bx][by].active) {

@@ -19,6 +19,10 @@ class MainScene extends Scene
     public override function update():Void {
         super.update();
 
+        if (_board.loading) {
+            return;
+        }
+
         if (Input.mouseReleased) {
             var e:Entity = collidePoint("board", Input.mouseX, Input.mouseY);
             if (e != null) {
@@ -26,11 +30,13 @@ class MainScene extends Scene
                 b.clicked(Input.mouseX, Input.mouseY);
 
                 if (b.solved) {
-                    _board.load(haxe.Json.parse(openfl.Assets.getText("levels/" + Std.string(lev) + ".json")));
-                    lev++;
-                    if (lev > 30) {
-                        lev = 0;
-                    }
+                    HXP.alarm(0.75, function(arg:Dynamic) {
+                        _board.load(haxe.Json.parse(openfl.Assets.getText("levels/" + Std.string(lev) + ".json")));
+                        lev++;
+                        if (lev > 30) {
+                            lev = 0;
+                        }
+                    });
                 }
             } else {
                 _board.load(haxe.Json.parse(openfl.Assets.getText("levels/" + Std.string(lev) + ".json")));

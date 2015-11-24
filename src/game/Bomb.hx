@@ -28,6 +28,7 @@ class Bomb {
     private var _rate:Float = Math.random() + 1;
 
     private var _offTween:ColorTween;
+    private var _playTween:MultiVarTween;
 
     private var _mscale = [
         5/4.0,
@@ -83,12 +84,21 @@ class Bomb {
     }
 
     public function play(arg:Dynamic) {
+         _play(false);
+    }
+
+    public function _play(silent:Bool = false) {
         if (_active) {
-            var tone:SoundChannel = cast(HXP.engine, Main).assets.getsound("tone").play();
-            tone.pitch = _pitch;
-            var tween = new MultiVarTween(reset, TweenType.OneShot);
-            tween.tween(_bomb, {"scale": _scale * 1.05, "alpha": 1}, 0.2);
-            HXP.tweener.addTween(tween, true);
+            if (!silent) {
+                var tone:SoundChannel = cast(HXP.engine, Main).assets.getsound("tone").play();
+                tone.pitch = _pitch;
+            }
+            if (_playTween != null && _playTween.active) {
+                _playTween.cancel();
+            }
+            _playTween = new MultiVarTween(reset, TweenType.OneShot);
+            _playTween.tween(_bomb, {"scale": _scale * 1.05, "alpha": 1}, 0.2);
+            HXP.tweener.addTween(_playTween, true);
         }
     }
 
@@ -96,6 +106,9 @@ class Bomb {
         _active = !_active;
         if (_offTween != null && _offTween.active) {
             _offTween.cancel();
+        }
+        if (_playTween != null && _playTween.active) {
+            _playTween.cancel();
         }
         if (_active) {
             _bomb.play("on");
