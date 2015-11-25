@@ -35,7 +35,7 @@ class Bomb {
         9/8.0,
         1,
         3/4.0,
-        5/8.0,
+        //5/8.0,
         9/16.0,
         0.5,
         3/8.0,
@@ -66,17 +66,26 @@ class Bomb {
         _bomb.x = _bomb.scale * (x*bomb_data.width + bomb_data.width / 2);
         _bomb.y = _bomb.scale * (y*bomb_data.width + bomb_data.width / 2);
 
-        _bomb.alpha = b.menu? 0 : 0.75;
-
+        _bomb.alpha = 0.75;
 
         _bomb.centerOrigin();
         _board.addGraphic(_bomb);
+
+        _playTween = new MultiVarTween(reset, TweenType.Persist);
+        _playTween.tween(_bomb, {"scale": _scale * 1.05, "alpha": 1}, 0.2);
+        HXP.tweener.addTween(_playTween);
+
+        _offTween = new ColorTween(function(arg:Dynamic) { _bomb.color = 0xFFFFFF; _bomb.play("off"); }, TweenType.Persist);
+        _offTween.tween(0.5, 0xFFFFFF, 0x606060);
+        HXP.tweener.addTween(_offTween);
+
+        _bomb.alpha = b.menu? 0 : 0.75;
     }
 
     public function update() {
         _colour.hue += HXP.elapsed * _rate;
         _colour.hue = _colour.hue % 360;
-        if (_offTween != null && _offTween.active) {
+        if (_offTween.active) {
             _bomb.color = _offTween.color;
         } else if (_active) {
             _bomb.color = _colour.getColor();
@@ -93,32 +102,20 @@ class Bomb {
                 var tone:SoundChannel = cast(HXP.engine, Main).assets.getsound("tone").play();
                 tone.pitch = _pitch;
             }
-            if (_playTween != null && _playTween.active) {
-                _playTween.cancel();
-            }
-            _playTween = new MultiVarTween(reset, TweenType.OneShot);
-            _playTween.tween(_bomb, {"scale": _scale * 1.05, "alpha": 1}, 0.2);
-            HXP.tweener.addTween(_playTween, true);
+            _playTween.start();
         }
     }
 
     public function toggle(setting:Bool = false) {
         _active = !_active;
-        if (_offTween != null && _offTween.active) {
-            _offTween.cancel();
-        }
-        if (_playTween != null && _playTween.active) {
-            _playTween.cancel();
-        }
         if (_active) {
+            _offTween.active = false;
             _bomb.play("on");
             _bomb.alpha = 0.75;
             _bomb.color = _colour.getColor();
         } else {
-            //_bomb.play("off");
-            _offTween = new ColorTween(function(arg:Dynamic) { _bomb.color = 0xFFFFFF; _bomb.play("off"); }, TweenType.OneShot);
-            _offTween.tween(0.5, _bomb.color, 0x606060);
-            HXP.tweener.addTween(_offTween, true);
+            _playTween.active = false;
+            _offTween.start();
         }
         if (setting) {
             _count++;

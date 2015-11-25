@@ -85,8 +85,8 @@ class Board extends Entity {
             } else if (_loadingAcc >= _loadingTempo) {
                 _loadingAcc -= _loadingTempo;
                 for (c in 0..._w) {
-                    _bombs[c][_loadingStep]._play(true);
-                    toggle(c, _loadingStep, false, true);
+                    _bombs[c][_loadingStep]._play(c != 0);
+                    toggle(c, _loadingStep, true, true);
                 }
                 _loadingStep++;
             }
@@ -118,28 +118,13 @@ class Board extends Entity {
         clear(false);
 
         _level = level;
-        //for (r in 0..._h) {
-            //HXP.alarm(r * 0.1, function(arg:Dynamic) {
-                //for (c in 0..._w) {
-                    //_bombs[c][r]._play(true);
-                    //toggle(c, r, false, true);
-                //}
-            //}, TweenType.OneShot);
-        //}
-        //HXP.alarm(_h * 0.1, function(arg:Dynamic) {
-            //for (t in level) {
-                //toggle(t.x, t.y, true, true);
-            //}
-            //_loading = false;
-            //_solved = false;
-        //}, TweenType.OneShot);
     }
 
     public function clear(off:Bool = true) {
         for (x in 0..._w) {
             for (y in 0..._h) {
                 if (_bombs[x][y].active == off) {
-                    toggle(x, y, false, true);
+                    toggle(x, y, true, true);
                 }
             }
         }
@@ -158,7 +143,7 @@ class Board extends Entity {
     }
 
     public function clicked(x:Int, y:Int) {
-        if (_loading) {
+        if (_solved || _loading) {
             return;
         }
         var lX:Int = Std.int(x - this.x);

@@ -12,6 +12,9 @@ class Main extends Engine
     private inline function get_assets():AssetManager { return _assetManager; }
 
     override public function init() {
+
+        HXP.stage.addEventListener(openfl.events.KeyboardEvent.KEY_UP, key_up);
+
         maxElapsed = 0.1;
         _assetManager = new AssetManager();
         _assetManager.load([["splash", null, 2, HXP.width / 2]]);
@@ -29,6 +32,11 @@ class Main extends Engine
 #else
         HXP.scene = new SplashScene();
 #end
+    }
+
+    private function key_up(e:openfl.events.KeyboardEvent) {
+         //HXP.log(Std.string(e.keyCode));
+         e.stopImmediatePropagation();
     }
 
     public static function main() { new Main(); }

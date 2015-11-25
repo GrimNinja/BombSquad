@@ -19,7 +19,11 @@ class MainScene extends Scene
     public override function update():Void {
         super.update();
 
-        if (_board.loading) {
+        if (Input.released(com.haxepunk.utils.Key.ESCAPE)) {
+            HXP.log("PRESSED!");
+        }
+
+        if (_board.loading || _board.solved) {
             return;
         }
 
