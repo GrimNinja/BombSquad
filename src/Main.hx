@@ -34,6 +34,10 @@ class Main extends Engine
 #end
     }
 
+    override public function focusLost () {
+        HXP.scene = new MenuScene();
+    }
+
     private function key_up(e:openfl.events.KeyboardEvent) {
          //HXP.log(Std.string(e.keyCode));
          e.stopImmediatePropagation();
