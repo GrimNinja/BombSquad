@@ -125,7 +125,7 @@ class SelectBomb {
             _bomb.color = _colour.getColor();
             if (number != -1) {
                  //set number
-                _level.text = Std.string(number);
+                _level.text = Std.string(number + 1);
                 _level.x = _bomb.x - _level.width / 2;
                 _level.y = _bomb.y;
             } else {

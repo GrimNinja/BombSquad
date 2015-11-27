@@ -6,6 +6,7 @@ import com.haxepunk.Entity;
 import com.haxepunk.graphics.Text;
 import com.haxepunk.utils.Input;
 import com.haxepunk.utils.Data;
+import openfl.text.TextFormatAlign;
 import game.*;
 import ui.*;
 
@@ -30,6 +31,7 @@ class MainScene extends Scene
         _levelText.size = Std.int(HXP.height / 12);
         _levelText.setTextProperty("color", 0xFFFFFF);
         _levelText.alpha = 0.25;
+        _levelText.align = TextFormatAlign.CENTER;
 
         addGraphic(_levelText);
 
@@ -78,7 +80,7 @@ class MainScene extends Scene
 
                 if (b.solved) {
                     HXP.alarm(0.75, function(arg:Dynamic) {
-                        if (lev == 31) {
+                        if (lev == 36) {
                             cast(HXP.engine, Main).changeScene("select");
                         } else {
                             if (lev > Data.readInt("level")) {
@@ -105,8 +107,9 @@ class MainScene extends Scene
     public function load(level:Int) {
         _board.reset();
         _board.load(haxe.Json.parse(openfl.Assets.getText("levels/" + Std.string(level) + ".json")));
-        _levelText.text = "Level " + Std.string(level);
         lev = level + 1;
+        _levelText.text = Std.string(lev);
+        _levelText.x = (HXP.width - _levelText.width) / 2;
     }
 
 }
