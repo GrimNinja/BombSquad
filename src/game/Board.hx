@@ -130,6 +130,14 @@ class Board extends Entity {
         }
     }
 
+    public function reset() {
+        clear();
+        _loadingAcc = 0.0;
+        _loadingStep = 0;
+        _loading = false;
+        _solved = false;
+    }
+
     public function save() {
          var ar = [];
          for (x in 0...6) {

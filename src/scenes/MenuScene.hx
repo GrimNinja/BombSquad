@@ -110,7 +110,14 @@ class MenuScene extends Scene
     ];
     private var _board:Board;
 
+    public function new() {
+        super();
+    }
     public override function begin() {
+        super.begin();
+        if (_board != null) {
+            return;
+        }
         _board = new Board(30, 15, true);
         _board.y = _board.height / 2;
         for (c in _title) {
@@ -120,10 +127,10 @@ class MenuScene extends Scene
     }
 
     public override function update():Void {
-         super.update();
+        super.update();
 
-         if (Input.mouseReleased) {
-             HXP.scene = new MainScene();
-         }
+        if (Input.mouseReleased) {
+            cast(HXP.engine, Main).changeScene("select");
+        }
     }
 }

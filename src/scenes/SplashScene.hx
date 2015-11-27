@@ -20,6 +20,10 @@ class SplashScene extends Scene {
 
     private var fade:ColorTween;
 
+    public function new() {
+        super();
+    }
+
     override public function begin() {
         super.begin();
 
@@ -59,7 +63,7 @@ class SplashScene extends Scene {
 
     private function fadeOutComplete(ar:Dynamic) {
         //change scene
-        HXP.scene = new MenuScene();
+        cast(HXP.engine, Main).changeScene("menu");
     }
 
     private function fadeIn(arg:Dynamic) {
