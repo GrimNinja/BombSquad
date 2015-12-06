@@ -21,6 +21,10 @@ class MainScene extends Scene
     private var _back:Button;
     private var _reset:Button;
 
+    private var _mute:Button;
+
+    private var _free = false;
+
     public function new() {
         super();
         _board = new Board(6,6);
@@ -35,8 +39,9 @@ class MainScene extends Scene
 
         addGraphic(_levelText);
 
-        _back = new Button("<-");
+        _back = new Button("menu");
         _back.y = HXP.height - _back.height;
+        _back.x = (HXP.width - _back.width) / 2;
         _back.callback = function() {
             cast(HXP.engine, Main).changeScene("select");
         }
@@ -46,14 +51,36 @@ class MainScene extends Scene
         _reset.y = HXP.height - _reset.height;
         _reset.x = HXP.width - _reset.width;
         _reset.callback = function() {
-            load(lev-1);
+            if (_free) {
+                _board.reset();
+                _board.load([]);
+            } else {
+                load(lev-1);
+            }
         }
         add(_reset);
+
+        _mute = new Button("m");
+        _mute.y = HXP.height - _mute.height;
+        _mute.callback = function() {
+            Data.write("sound", !Data.readBool("sound"));
+            Data.save("tonesout");
+        }
+        add(_mute);
     }
 
     public override function begin() {
         super.begin();
-        load(lev);
+        if (lev > -1) {
+            _free = false;
+            load(lev);
+        } else {
+            _free = true;
+            _levelText.text = "free";
+            _levelText.x = (HXP.width - _levelText.width) / 2;
+            _board.reset();
+            _board.load([]);
+        }
     }
 
     public override function end() {
@@ -67,7 +94,7 @@ class MainScene extends Scene
             HXP.log("PRESSED!");
         }
 
-        if (_board.loading || _board.solved) {
+        if (_board.loading || (!_free && _board.solved)) {
             return;
         }
 
@@ -78,9 +105,9 @@ class MainScene extends Scene
                 var b:Board = cast(e, Board);
                 b.clicked(Input.mouseX, Input.mouseY);
 
-                if (b.solved) {
+                if (!_free && b.solved) {
                     HXP.alarm(0.75, function(arg:Dynamic) {
-                        if (lev == 36) {
+                        if (lev == 60) {
                             cast(HXP.engine, Main).changeScene("select");
                         } else {
                             if (lev > Data.readInt("level")) {

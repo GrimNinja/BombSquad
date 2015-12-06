@@ -26,11 +26,11 @@ class SelectScene extends Scene
         _board = new SelectBoard(6,6);
         add(_board);
 
-        _back = new Button("menu");
+        _back = new Button("free");
         _back.x = (HXP.width - _back.width) / 2;
         _back.y = HXP.height - _back.height;
         _back.callback = function() {
-            cast(HXP.engine, Main).changeScene("menu");
+            cast(HXP.engine, Main).changeScene("main", -1);
         }
         add(_back);
 

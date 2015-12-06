@@ -3,6 +3,7 @@ package game;
 import com.haxepunk.HXP;
 import com.haxepunk.graphics.Spritemap;
 import com.haxepunk.Tween.TweenType;
+import com.haxepunk.utils.Data;
 import com.haxepunk.tweens.misc.MultiVarTween;
 import com.haxepunk.tweens.misc.ColorTween;
 import openfl.display.BitmapData;
@@ -31,20 +32,14 @@ class Bomb {
     private var _playTween:MultiVarTween;
 
     private var _mscale = [
+        3/2.0,
+        //11/8.0,
         5/4.0,
-        9/8.0,
+        //9/8.0,
         1,
-        3/4.0,
-        //5/8.0,
-        9/16.0,
-        0.5,
-        3/8.0,
-        5/4.0,
-        9/8.0,
-        1,
-        3/4.0,
+        //3/4.0,
         5/8.0,
-        9/16.0,
+        //9/16.0,
         0.5,
         3/8.0
     ];
@@ -75,7 +70,7 @@ class Bomb {
         _playTween.tween(_bomb, {"scale": _scale * 1.05, "alpha": 1}, 0.2);
         HXP.tweener.addTween(_playTween);
 
-        _offTween = new ColorTween(function(arg:Dynamic) { _bomb.color = 0xFFFFFF; _bomb.play("off"); }, TweenType.Persist);
+        _offTween = new ColorTween(function(arg:Dynamic) { _bomb.alpha = 0.75; _bomb.color = 0xFFFFFF; _bomb.play("off"); }, TweenType.Persist);
         _offTween.tween(0.5, 0xFFFFFF, 0x606060);
         HXP.tweener.addTween(_offTween);
 
@@ -98,7 +93,7 @@ class Bomb {
 
     public function _play(silent:Bool = false) {
         if (_active) {
-            if (!silent) {
+            if (!silent && Data.readBool("sound")) {
                 var tone:SoundChannel = cast(HXP.engine, Main).assets.getsound("tone").play();
                 tone.pitch = _pitch;
             }

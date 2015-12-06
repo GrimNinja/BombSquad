@@ -151,13 +151,13 @@ class Board extends Entity {
     }
 
     public function clicked(x:Int, y:Int) {
-        if (_solved || _loading) {
-            return;
-        }
+        //if (_solved || _loading) {
+            //return;
+        //}
         var lX:Int = Std.int(x - this.x);
         var lY:Int = Std.int(y - this.y);
 
-        toggle(Math.floor(lX / _width), Math.floor(lY / _height));
+        toggle(Math.floor(lX / _width), Math.floor(lY / _height));//, false, true);
     }
 
     public function toggle(x:Int, y:Int, setting:Bool = false, onlyOne:Bool = false) {

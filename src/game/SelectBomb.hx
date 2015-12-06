@@ -4,6 +4,7 @@ import com.haxepunk.HXP;
 import com.haxepunk.graphics.Spritemap;
 import com.haxepunk.graphics.Text;
 import com.haxepunk.Tween.TweenType;
+import com.haxepunk.utils.Data;
 import com.haxepunk.tweens.misc.MultiVarTween;
 import com.haxepunk.tweens.misc.ColorTween;
 import openfl.display.BitmapData;
@@ -34,20 +35,14 @@ class SelectBomb {
     private var _level:Text;
 
     private var _mscale = [
+        3/2.0,
+        //11/8.0,
         5/4.0,
-        9/8.0,
+        //9/8.0,
         1,
-        3/4.0,
-        //5/8.0,
-        9/16.0,
-        0.5,
-        3/8.0,
-        5/4.0,
-        9/8.0,
-        1,
-        3/4.0,
+        //3/4.0,
         5/8.0,
-        9/16.0,
+        //9/16.0,
         0.5,
         3/8.0
     ];
@@ -108,7 +103,7 @@ class SelectBomb {
 
     public function _play(silent:Bool = false) {
         if (_active) {
-            if (!silent) {
+            if (!silent && Data.readBool("sound")) {
                 var tone:SoundChannel = cast(HXP.engine, Main).assets.getsound("tone").play();
                 tone.pitch = _pitch;
             }

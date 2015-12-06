@@ -3,7 +3,7 @@ import com.haxepunk.HXP;
 import com.haxepunk.utils.Data;
 import openfl.system.Capabilities;
 import scenes.SplashScene;
-import scenes.MenuScene;
+//import scenes.MenuScene;
 import scenes.MainScene;
 import scenes.SelectScene;
 
@@ -12,7 +12,7 @@ class Main extends Engine
     private var _assetManager:AssetManager;
 
     private var splashScene:SplashScene;
-    private var menuScene:MenuScene;
+    //private var menuScene:MenuScene;
     private var mainScene:MainScene;
     private var selectScene:SelectScene;
 
@@ -38,12 +38,12 @@ class Main extends Engine
 
         mainScene = new MainScene();
         selectScene = new SelectScene();
-        menuScene = new MenuScene();
+        //menuScene = new MenuScene();
         splashScene = new SplashScene();
 
 #if debug
         HXP.console.enable();
-        HXP.scene = menuScene;
+        HXP.scene = selectScene;
 #else
         HXP.scene = splashScene;
 #end
@@ -55,12 +55,12 @@ class Main extends Engine
                 var level = cast(data != null ? data : 0, Int);
                 mainScene.lev = level;
                 HXP.scene = mainScene;
-            case "menu":
-                HXP.scene = menuScene;
+            //case "menu":
+                //HXP.scene = menuScene;
             case "select":
                 HXP.scene = selectScene;
             default:
-                HXP.scene = menuScene;
+                HXP.scene = selectScene;
         }
     }
 
