@@ -6,6 +6,7 @@ import com.haxepunk.Entity;
 import com.haxepunk.graphics.Text;
 import com.haxepunk.utils.Input;
 import com.haxepunk.utils.Data;
+import openfl.text.TextFormatAlign;
 import game.*;
 import ui.*;
 
@@ -20,6 +21,8 @@ class SelectScene extends Scene
     private var _prev:Button;
     private var _next:Button;
 
+    private var _titleText:Text;
+
     public function new() {
         super();
 
@@ -33,6 +36,16 @@ class SelectScene extends Scene
             cast(HXP.engine, Main).changeScene("main", -1);
         }
         add(_back);
+
+        _titleText = new Text("Level Select");
+        _titleText.size = Std.int(HXP.height / 15);
+        _titleText.x = (HXP.width - _titleText.width) / 2;
+        _titleText.y = (_board.y - _titleText.height) / 2;
+        _titleText.setTextProperty("color", 0xFFFFFF);
+        _titleText.alpha = 0.25;
+        _titleText.align = TextFormatAlign.CENTER;
+
+        addGraphic(_titleText);
 
         _prev = new Button("<-");
         _prev.y = _back.y;

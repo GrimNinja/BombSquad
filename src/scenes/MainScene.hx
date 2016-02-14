@@ -25,6 +25,9 @@ class MainScene extends Scene
 
     private var _free = false;
 
+    private var _messages:Dynamic;
+    private var _messageText:Text;
+
     public function new() {
         super();
         _board = new Board(6,6);
@@ -38,6 +41,18 @@ class MainScene extends Scene
         _levelText.align = TextFormatAlign.CENTER;
 
         addGraphic(_levelText);
+
+        _messages = haxe.Json.parse(openfl.Assets.getText("levels/messages.json"));
+
+        _messageText = new Text("");
+        _messageText.resizable = true;
+        _messageText.size = Std.int(HXP.height / 25);
+        _messageText.setTextProperty("color", 0xFFFFFF);
+        _messageText.alpha = 0.25;
+        _messageText.align = TextFormatAlign.CENTER;
+        _messageText.y = _levelText.height;
+
+        addGraphic(_messageText);
 
         _back = new Button("menu");
         _back.y = HXP.height - _back.height;
@@ -94,14 +109,14 @@ class MainScene extends Scene
             HXP.log("PRESSED!");
         }
 
-        if (_board.loading || (!_free && _board.solved)) {
-            return;
-        }
-
         if (Input.mouseReleased) {
             var e:Entity = collidePoint("board", Input.mouseX, Input.mouseY);
             var b:Entity = collidePoint("button", Input.mouseX, Input.mouseY);
             if (e != null) {
+                if (_board.loading || (!_free && _board.solved)) {
+                    return;
+                }
+
                 var b:Board = cast(e, Board);
                 b.clicked(Input.mouseX, Input.mouseY);
 
@@ -132,6 +147,12 @@ class MainScene extends Scene
     }
 
     public function load(level:Int) {
+        if (_messages[lev] != null) {
+            _messageText.text = _messages[lev];
+            _messageText.x = (HXP.width - _messageText.width) / 2;
+        } else {
+            _messageText.text = "";
+        }
         _board.reset();
         _board.load(haxe.Json.parse(openfl.Assets.getText("levels/" + Std.string(level) + ".json")));
         lev = level + 1;
