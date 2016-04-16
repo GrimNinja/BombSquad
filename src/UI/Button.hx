@@ -22,7 +22,7 @@ class Button extends Entity
         graphic = _text;
         width = _text.width;
         height = _text.height;
-        _text.alpha = 0.25;
+        _text.alpha = 0.5;
     }
 
     public function click() {
@@ -32,7 +32,7 @@ class Button extends Entity
     }
 
     public function enable() {
-         _text.alpha = 0.25;
+         _text.alpha = 0.5;
     }
 
     public function disable() {

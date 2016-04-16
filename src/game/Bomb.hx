@@ -8,6 +8,7 @@ import com.haxepunk.tweens.misc.MultiVarTween;
 import com.haxepunk.tweens.misc.ColorTween;
 import openfl.display.BitmapData;
 import openfl.media.SoundChannel;
+import openfl.media.SoundTransform;
 
 class Bomb {
 
@@ -32,16 +33,21 @@ class Bomb {
     private var _playTween:MultiVarTween;
 
     private var _mscale = [
-        3/2.0,
+        //3/2.0,
         //11/8.0,
-        5/4.0,
+        //5/4.0,
         //9/8.0,
-        1,
+        //1,
         //3/4.0,
-        5/8.0,
+        //5/8.0,
         //9/16.0,
+        16/9.0,
+        3/2.0,
+        9/8.0,
+        8/9.0,
+        3/5.0,
         0.5,
-        3/8.0
+        //3/8.0
     ];
 
     public function new(b:Board, x, y, t:Int, a:Bool) {
@@ -61,7 +67,7 @@ class Bomb {
         _bomb.x = _bomb.scale * (x*bomb_data.width + bomb_data.width / 2);
         _bomb.y = _bomb.scale * (y*bomb_data.width + bomb_data.width / 2);
 
-        _bomb.alpha = 0.75;
+        _bomb.alpha = 0.85;
 
         _bomb.centerOrigin();
         _board.addGraphic(_bomb);
@@ -74,7 +80,7 @@ class Bomb {
         _offTween.tween(0.5, 0xFFFFFF, 0x606060);
         HXP.tweener.addTween(_offTween);
 
-        _bomb.alpha = b.menu? 0 : 0.75;
+        //_bomb.alpha = b.menu? 0 : 0.75;
     }
 
     public function update() {
@@ -94,8 +100,10 @@ class Bomb {
     public function _play(silent:Bool = false) {
         if (_active) {
             if (!silent && Data.readBool("sound")) {
-                var tone:SoundChannel = cast(HXP.engine, Main).assets.getsound("tone").play();
-                tone.pitch = _pitch;
+                var tone:SoundChannel = cast(HXP.engine, Main).assets.getsound("newtone").play();
+                tone.pitch = _pitch;// * (0.95 + Math.random() * 0.1);
+
+                tone.soundTransform = new SoundTransform(Math.random());
             }
             _playTween.start();
         }
@@ -106,7 +114,7 @@ class Bomb {
         if (_active) {
             _offTween.active = false;
             _bomb.play("on");
-            _bomb.alpha = 0.75;
+            _bomb.alpha = 0.85;
             _bomb.color = _colour.getColor();
         } else {
             _playTween.active = false;
@@ -121,7 +129,7 @@ class Bomb {
 
     private function reset(arg:Dynamic) {
         var tween = new MultiVarTween(null, TweenType.OneShot);
-        tween.tween(_bomb, {"scale": _scale, "alpha": 0.75}, 0.8);
+        tween.tween(_bomb, {"scale": _scale, "alpha": 0.85}, 0.8);
         HXP.tweener.addTween(tween, true);
     }
 }

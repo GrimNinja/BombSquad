@@ -42,7 +42,7 @@ class SelectScene extends Scene
         _titleText.x = (HXP.width - _titleText.width) / 2;
         _titleText.y = (_board.y - _titleText.height) / 2;
         _titleText.setTextProperty("color", 0xFFFFFF);
-        _titleText.alpha = 0.25;
+        _titleText.alpha = 0.5;
         _titleText.align = TextFormatAlign.CENTER;
 
         addGraphic(_titleText);

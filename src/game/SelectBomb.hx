@@ -35,16 +35,21 @@ class SelectBomb {
     private var _level:Text;
 
     private var _mscale = [
-        3/2.0,
+        //3/2.0,
         //11/8.0,
-        5/4.0,
+        //5/4.0,
         //9/8.0,
-        1,
+        //1,
         //3/4.0,
-        5/8.0,
+        //5/8.0,
         //9/16.0,
+        16/9.0,
+        3/2.0,
+        9/8.0,
+        8/9.0,
+        3/5.0,
         0.5,
-        3/8.0
+        //3/8.0
     ];
 
     public function new(b:SelectBoard, x, y, t:Int, a:Bool) {
@@ -64,7 +69,7 @@ class SelectBomb {
         _bomb.x = _bomb.scale * (x*bomb_data.width + bomb_data.width / 2);
         _bomb.y = _bomb.scale * (y*bomb_data.width + bomb_data.width / 2);
 
-        _bomb.alpha = 0.75;
+        //_bomb.alpha = 0.75;
 
         _bomb.centerOrigin();
         _board.addGraphic(_bomb);
@@ -77,10 +82,10 @@ class SelectBomb {
         _offTween.tween(0.5, 0xFFFFFF, 0x606060);
         HXP.tweener.addTween(_offTween);
 
-        _bomb.alpha = b.menu? 0 : 0.75;
+        //_bomb.alpha = b.menu? 0 : 0.75;
 
         _level = new Text("00");
-        _level.alpha = 0.5;
+        //_level.alpha = 0.5;
         _level.size = Std.int( _bomb.height / 3 );
         _level.resizable = true;
         _level.setTextProperty("color", 0xFFFFFF);
@@ -104,7 +109,7 @@ class SelectBomb {
     public function _play(silent:Bool = false) {
         if (_active) {
             if (!silent && Data.readBool("sound")) {
-                var tone:SoundChannel = cast(HXP.engine, Main).assets.getsound("tone").play();
+                var tone:SoundChannel = cast(HXP.engine, Main).assets.getsound("newtone").play();
                 tone.pitch = _pitch;
             }
             _playTween.start();
@@ -116,7 +121,7 @@ class SelectBomb {
         if (_active) {
             _offTween.active = false;
             _bomb.play("on");
-            _bomb.alpha = 0.75;
+            //_bomb.alpha = 0.75;
             _bomb.color = _colour.getColor();
             if (number != -1) {
                  //set number
@@ -135,7 +140,7 @@ class SelectBomb {
 
     private function reset(arg:Dynamic) {
         var tween = new MultiVarTween(null, TweenType.OneShot);
-        tween.tween(_bomb, {"scale": _scale, "alpha": 0.75}, 0.8);
+        tween.tween(_bomb, {"scale": _scale/*, "alpha": 0.75*/}, 0.8);
         HXP.tweener.addTween(tween, true);
     }
 }

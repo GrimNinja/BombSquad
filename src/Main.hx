@@ -32,7 +32,7 @@ class Main extends Engine
         //load graphics here for now
         _assetManager.load([["bomb", "graphics/game", 2, HXP.width / 6]]);
         //load sound here for now too
-        _assetManager.loadsound("tone");
+        _assetManager.loadsound("newtone");
 
         HXP.randomizeSeed();
 

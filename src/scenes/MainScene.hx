@@ -37,7 +37,7 @@ class MainScene extends Scene
         _levelText.resizable = true;
         _levelText.size = Std.int(HXP.height / 12);
         _levelText.setTextProperty("color", 0xFFFFFF);
-        _levelText.alpha = 0.25;
+        _levelText.alpha = 0.5;
         _levelText.align = TextFormatAlign.CENTER;
 
         addGraphic(_levelText);
@@ -48,7 +48,7 @@ class MainScene extends Scene
         _messageText.resizable = true;
         _messageText.size = Std.int(HXP.height / 25);
         _messageText.setTextProperty("color", 0xFFFFFF);
-        _messageText.alpha = 0.25;
+        _messageText.alpha = 0.5;
         _messageText.align = TextFormatAlign.CENTER;
         _messageText.y = _levelText.height;
 
