@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project>
-    <meta title="Tones Out" package="com.example.tonesout" version="0.0.1" company="Grim Ninja" />
+    <meta title="Tones Out" package="com.grimninja.tonesout" version="1.0" company="Grim Ninja" />
 
     <app file="Main" main="Main" path="bin" />
 
