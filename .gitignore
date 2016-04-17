@@ -2,3 +2,4 @@
 project.xml.hxml
 project-private.xml
 *.keystore
+/libs/

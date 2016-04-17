@@ -9,6 +9,7 @@ import com.haxepunk.tweens.misc.MultiVarTween;
 import com.haxepunk.tweens.misc.ColorTween;
 import openfl.display.BitmapData;
 import openfl.media.SoundChannel;
+import openfl.media.SoundTransform;
 
 class SelectBomb {
 
@@ -111,6 +112,8 @@ class SelectBomb {
             if (!silent && Data.readBool("sound")) {
                 var tone:SoundChannel = cast(HXP.engine, Main).assets.getsound("newtone").play();
                 tone.pitch = _pitch;
+
+                tone.soundTransform = new SoundTransform(Math.random());
             }
             _playTween.start();
         }

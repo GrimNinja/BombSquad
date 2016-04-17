@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="0.99999994"
+   height="0.99999994"
+   viewBox="0 0 0.99999996 0.99999996"
+   id="svg6437"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="reset.svg">
+  <defs
+     id="defs6439" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="256"
+     inkscape:cx="0.77866251"
+     inkscape:cy="0.58322721"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     units="px"
+     inkscape:window-width="1366"
+     inkscape:window-height="719"
+     inkscape:window-x="0"
+     inkscape:window-y="1"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata6442">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-1051.3622)">
+    <path
+       style="fill:#ffffff;fill-opacity:1"
+       d="M 0.125 0.5 L 0.125 0.625 L 0 0.625 L 0 0.75 L 0.125 0.75 L 0.125 0.875 L 0.25 0.875 L 0.25 0.75 L 0.375 0.75 L 0.375 0.625 L 0.25 0.625 L 0.25 0.5 L 0.125 0.5 z M 0.25 0.875 L 0.25 1 L 0.375 1 L 0.5 1 L 0.625 1 L 0.625 0.875 L 0.5 0.875 L 0.375 0.875 L 0.25 0.875 z M 0.625 0.875 L 0.75 0.875 L 0.75 0.75 L 0.625 0.75 L 0.625 0.875 z "
+       transform="translate(0,1051.3622)"
+       id="rect6987" />
+    <path
+       style="fill:#ffffff;fill-opacity:1"
+       d="M 0.25 0.125 L 0.25 0.25 L 0.375 0.25 L 0.5 0.25 L 0.625 0.25 L 0.625 0.125 L 0.5 0.125 L 0.375 0.125 L 0.25 0.125 z M 0.625 0.25 L 0.625 0.375 L 0.5 0.375 L 0.5 0.5 L 0.625 0.5 L 0.625 0.625 L 0.75 0.625 L 0.75 0.5 L 0.875 0.5 L 0.875 0.375 L 0.75 0.375 L 0.75 0.25 L 0.625 0.25 z M 0.25 0.25 L 0.125 0.25 L 0.125 0.375 L 0.25 0.375 L 0.25 0.25 z "
+       transform="translate(0,1051.3622)"
+       id="rect6997" />
+  </g>
+</svg>

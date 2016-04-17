@@ -19,9 +19,9 @@ class MainScene extends Scene
     private var _levelText:Text;
 
     private var _back:Button;
-    private var _reset:Button;
+    private var _reset:Reset;
 
-    private var _mute:Button;
+    private var _mute:Mute;
 
     private var _free = false;
 
@@ -62,9 +62,9 @@ class MainScene extends Scene
         }
         add(_back);
 
-        _reset = new Button("*");
-        _reset.y = HXP.height - _reset.height;
-        _reset.x = HXP.width - _reset.width;
+        _reset = new Reset();
+        _reset.y = HXP.height - _reset.height * 1.25;
+        _reset.x = HXP.width - _reset.width * 1.25;
         _reset.callback = function() {
             if (_free) {
                 _board.reset();
@@ -75,8 +75,9 @@ class MainScene extends Scene
         }
         add(_reset);
 
-        _mute = new Button("m");
-        _mute.y = HXP.height - _mute.height;
+        _mute = new Mute(Data.readBool("sound"));
+        _mute.y = HXP.height - _mute.height * 1.25;
+        _mute.x = _mute.width * 0.25;
         _mute.callback = function() {
             Data.write("sound", !Data.readBool("sound"));
             Data.save("tonesout");
@@ -96,6 +97,8 @@ class MainScene extends Scene
             _board.reset();
             _board.load([]);
         }
+        //set mute icon state
+        _mute.set(Data.readBool("sound"));
     }
 
     public override function end() {
@@ -112,6 +115,8 @@ class MainScene extends Scene
         if (Input.mouseReleased) {
             var e:Entity = collidePoint("board", Input.mouseX, Input.mouseY);
             var b:Entity = collidePoint("button", Input.mouseX, Input.mouseY);
+            var m:Entity = collidePoint("mute", Input.mouseX, Input.mouseY);
+            var r:Entity = collidePoint("reset", Input.mouseX, Input.mouseY);
             if (e != null) {
                 if (_board.loading || (!_free && _board.solved)) {
                     return;
@@ -136,6 +141,12 @@ class MainScene extends Scene
             } else if (b != null) {
                 var button:Button = cast(b, Button);
                 button.click();
+            } else if (m != null) {
+                var mute:Mute = cast(m, Mute);
+                mute.click();
+            } else if (r != null) {
+                var reset:Reset = cast(r, Reset);
+                reset.click();
             } else {
                 return;
                 //save level

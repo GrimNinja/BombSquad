@@ -31,6 +31,8 @@ class Main extends Engine
 
         //load graphics here for now
         _assetManager.load([["bomb", "graphics/game", 2, HXP.width / 6]]);
+        _assetManager.load([["mute", null, 2, HXP.width / 10]]);
+        _assetManager.load([["reset", null, 1, HXP.width / 10]]);
         //load sound here for now too
         _assetManager.loadsound("newtone");
 
@@ -69,7 +71,10 @@ class Main extends Engine
     }
 
     private function key_up(e:openfl.events.KeyboardEvent) {
-         e.stopImmediatePropagation();
+         if (HXP.scene != selectScene) {
+             e.stopImmediatePropagation();
+            HXP.scene = selectScene;
+         }
     }
 
     public static function main() { new Main(); }
